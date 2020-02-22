@@ -35,14 +35,14 @@ class Commands {
       } else if(axis == 'Y'){
         if(digitalRead(Y_LIM) == HIGH && Y_POS == false){  
           SMC.step(true, Y_DIR, Y_STP, stps);
-          Serial.println("MOVING Y-AXIS DOWNWARD.");
+          Serial.println("MOVING Y-AXIS UPWARD.");
         } else if(digitalRead(Y_LIM) == LOW && Y_POS == false){
           Serial.println("Y_POS TOUCHED");
           Y_POS = true;
           delay(3000);
         } else if(digitalRead(Y_LIM) == HIGH && Y_NEG == false){
           SMC.step(false, Y_DIR, Y_STP, stps);
-          Serial.println("MOVING Y-AXIS UPWARD.");
+          Serial.println("MOVING Y-AXIS DOWNWARD.");
         } else if(digitalRead(Y_LIM) == LOW && Y_NEG == false){
           Serial.println("Y_NEG TOUCHED");
           delay(1000);
@@ -57,11 +57,9 @@ class Commands {
           delay(5000);
           calibrate = 0;
         }
-      }
-        
+      }   
     }
-
-        
+     
 
 }; 
 

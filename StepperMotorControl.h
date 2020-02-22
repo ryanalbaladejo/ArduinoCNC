@@ -1,13 +1,14 @@
-#include "Declarations.h"
+#include "PinConfiguration.h"
+#include "Constants.h"
 
 class StepperMotorControl {
 
   private:
 
-  boolean Dir;
-  byte DirPin;
-  byte StepperPin;
-  long int Steps;
+    boolean Dir;
+    byte DirPin;
+    byte StepperPin;
+    long int Steps;
 
   public:
 
@@ -29,6 +30,26 @@ class StepperMotorControl {
         delayMicroseconds(delayTime);
         //Serial.println(delayTime);
       }
+
+      if (dir == true && steps !=0) {
+        if (dirPin == X_DIR) {
+          X_VAL = X_VAL + 1;
+        } else if (dirPin == Y_DIR) {
+          Y_VAL = Y_VAL + 1;
+        } else if (dirPin == Z_DIR) {
+          Z_VAL = Z_VAL + 1;
+        }
+      } else if(dir == false && steps !=0) {
+        if (dirPin == X_DIR) {
+          X_VAL = X_VAL - 1;
+        } else if (dirPin == Y_DIR) {
+          Y_VAL = Y_VAL - 1;
+        } else if (dirPin == Z_DIR) {
+          Z_VAL = Z_VAL - 1;
+        }
+      }
+      Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
+
     }
 
 };

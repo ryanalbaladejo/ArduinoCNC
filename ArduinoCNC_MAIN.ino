@@ -28,9 +28,10 @@ void setup() {
 void loop() {
 
 if(calibrate == 1){
+  delay(100);
   AGE.beginCalbiration();
 } else {
-  Serial.println("Calibration is now finished.");
+  Serial.println("-->XYZ ROBOT CALIBRATION SUCCESS.");
   delay(10000000);
 }
 
