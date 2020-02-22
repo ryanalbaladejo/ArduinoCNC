@@ -22,5 +22,16 @@ extern int seedPin1 ;     //                01 - 4 X 2    11 - 3 X 2
 extern int waterPin ;     //FOR WATERING:
 extern int calibPin ;     //FOR CALIBRATION
 
+// STEPPER MOTOR SETTINGS
 extern int delayTime = 1000;         //Delay between each pause (uS) 
 extern long int stps = 50;           // microsteps per revolution with 1/32 microstepping    [50 steps = 1 cm travel]
+
+// LIMIT SWITCH CHECKERS
+boolean X_POS = false;    // X RIGHT LIMIT SWITCH
+boolean X_NEG = false;    // X LEFT LIMIT SWITCH
+
+boolean Y_POS = false;    // Y DOWN LIMIT SWITCH
+boolean Y_NEG = false;    // Y UP LIMIT SWITCH
+
+boolean Z_POS = false;
+boolean Z_NEG = false;
