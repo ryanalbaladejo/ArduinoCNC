@@ -27,11 +27,15 @@ extern int delayTime = 1000;         //Delay between each pause (uS)
 extern long int stps = 50;           // microsteps per revolution with 1/32 microstepping    [50 steps = 1 cm travel]
 
 // LIMIT SWITCH CHECKERS
-boolean X_POS = false;    // X RIGHT LIMIT SWITCH
-boolean X_NEG = false;    // X LEFT LIMIT SWITCH
+extern boolean X_POS = false;    // X RIGHT LIMIT SWITCH
+extern boolean X_NEG = false;    // X LEFT LIMIT SWITCH
 
-boolean Y_POS = false;    // Y DOWN LIMIT SWITCH
-boolean Y_NEG = false;    // Y UP LIMIT SWITCH
+extern boolean Y_POS = false;    // Y DOWN LIMIT SWITCH
+extern boolean Y_NEG = false;    // Y UP LIMIT SWITCH
 
-boolean Z_POS = false;
-boolean Z_NEG = false;
+extern boolean Z_POS = false;
+extern boolean Z_NEG = false;
+
+
+// RPI COMMANDS
+extern int calibrate = 1;

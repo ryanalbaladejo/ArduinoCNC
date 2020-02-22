@@ -2,7 +2,6 @@
 #include "Commands.h"
 
 //boolean touched = false;
-int calibrate = 1;
 
 void setup() {
   
@@ -30,6 +29,9 @@ void loop() {
 
 if(calibrate == 1){
   AGE.beginCalbiration();
+} else {
+  Serial.println("Calibration is now finished.");
+  delay(10000000);
 }
 
 }
