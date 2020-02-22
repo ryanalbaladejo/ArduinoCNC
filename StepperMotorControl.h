@@ -11,8 +11,6 @@ class StepperMotorControl {
 
   public:
 
-    //int delayTime;// = 1000;
-
     void step(boolean dir, byte dirPin, byte stepperPin, long int steps){
 
       Dir = dir;
