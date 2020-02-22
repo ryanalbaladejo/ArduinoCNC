@@ -1,3 +1,5 @@
+#include "Declarations.h"
+
 class StepperMotorControl {
 
   private:
@@ -9,6 +11,8 @@ class StepperMotorControl {
 
   public:
 
+    //int delayTime;// = 1000;
+
     void step(boolean dir, byte dirPin, byte stepperPin, long int steps){
 
       Dir = dir;
@@ -16,7 +20,7 @@ class StepperMotorControl {
       StepperPin = stepperPin;
       Steps = steps;
   
-      int delayTime;
+      //int delayTime;
       
       digitalWrite(dirPin, dir);
       
@@ -25,6 +29,7 @@ class StepperMotorControl {
         delayMicroseconds(delayTime);
         digitalWrite(stepperPin, LOW);
         delayMicroseconds(delayTime);
+        //Serial.println(delayTime);
       }
     }
 

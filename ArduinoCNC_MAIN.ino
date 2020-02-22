@@ -1,13 +1,14 @@
 #include "StepperMotorControl.h"
 #include "Commands.h"
+//#include "Declarations.h"
 
 // STEP PINS
-#define X_STP     2
+//#define X_STP     2
 #define Y_STP     3
 #define Z_STP     4
 
 // DIRECTION PINS
-#define X_DIR     5
+//#define X_DIR     5
 #define Y_DIR     6
 #define Z_DIR     7
 
@@ -25,8 +26,8 @@
 #define waterPin ;     //FOR WATERING:
 #define calibPin ;     //FOR CALIBRATION
 
-int delayTime = 1000;         //Delay between each pause (uS) 
-long int stps = 50;           // microsteps per revolution with 1/32 microstepping    [50 steps = 1 cm travel]
+//int delayTime = 1000;         //Delay between each pause (uS) 
+//long int stps = 50;           // microsteps per revolution with 1/32 microstepping    [50 steps = 1 cm travel]
 
 boolean touched = false;
 
@@ -64,7 +65,10 @@ void setup() {
 
 void loop() {
 
-  AGE.beginCalbiration('X');
+  AGE.beginCalbiration();
+
+      //SMC.step(false, X_DIR, X_STP, stps);
+
 //  Serial.println(digitalRead(limitPin));
 //  if (touched == true && digitalRead(limitPin) == HIGH) {
 //    //delay(200);
