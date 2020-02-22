@@ -36,6 +36,9 @@ extern boolean Y_NEG = false;    // Y UP LIMIT SWITCH
 extern boolean Z_POS = false;
 extern boolean Z_NEG = false;
 
+// AXIS
+
+extern char axis = 'X';
 
 // RPI COMMANDS
 extern int calibrate = 1;
