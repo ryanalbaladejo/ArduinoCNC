@@ -58,11 +58,16 @@ class Commands {
           Serial.println("Y-AXIS SUCCESSFULLY CALIBRATED.");
           //SMC.step(false, Y_DIR, Y_STP, 0);
           delay(5000);
-          calibrate = 0;
-        }
-        
-      }
          
+          calibrate = 0;
+
+          // RESET LIMIT SWTICH CHECKERS
+          X_POS = false;
+          X_NEG = false;
+          Y_POS = false;
+          Y_NEG = false;
+        }
+      }   
     }
      
 

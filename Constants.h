@@ -22,3 +22,6 @@ extern char axis = 'X';
 
 // RPI HARDCODED COMMANDS
 extern int calibrate = 1;
+
+// IDLE
+extern boolean idle = 0;
