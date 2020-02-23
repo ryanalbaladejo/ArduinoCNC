@@ -45,7 +45,7 @@ class StepperMotorControl {
           Z_VAL = Z_VAL - 1;
         }
       }
-      
+     
       Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
       
     }

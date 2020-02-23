@@ -7,7 +7,7 @@ class Commands {
     // 3-AXIS CALIBRATION
     void beginCalbiration(){
 
-      if(axis == 'X'){
+      if(axis == 'X'){            // X-AXIS CALIBRATION
         
         if(digitalRead(X_LIM) == HIGH && X_POS == false){  
           SMC.step(true, X_DIR, X_STP, stps);
@@ -22,19 +22,17 @@ class Commands {
         } else if(digitalRead(X_LIM) == LOW && X_NEG == false){
           Serial.println("X_NEG TOUCHED");
           delay(1000);
-          //SMC.step(false, X_DIR, X_STP, 0);
           Serial.println("Now stopping motion along X-AXIS.");
           X_NEG = true;
           delay(3000);
         } else if (X_POS == true && X_NEG == true){
           Serial.println("MOTION ALONG X-AXIS STOPPED.");
           Serial.println("X-AXIS SUCCESSFULLY CALIBRATED.");
-          //SMC.step(false, X_DIR, X_STP, 0);
           delay(5000);
           axis = 'Y';
         }
         
-      } else if(axis == 'Y'){
+      } else if(axis == 'Y'){     // Y-AXIS CALIBRATION
         
         if(digitalRead(Y_LIM) == HIGH && Y_POS == false){  
           SMC.step(true, Y_DIR, Y_STP, stps);
@@ -49,16 +47,15 @@ class Commands {
         } else if(digitalRead(Y_LIM) == LOW && Y_NEG == false){
           Serial.println("Y_NEG TOUCHED");
           delay(1000);
-          //SMC.step(false, Y_DIR, Y_STP, 0);
-          Serial.println("Now stopping motion along Y-AXIS.");
+           Serial.println("Now stopping motion along Y-AXIS.");
           Y_NEG = true;
           delay(3000);
         } else if (Y_POS == true && Y_NEG == true){
           Serial.println("MOTION ALONG Y-AXIS STOPPED.");
           Serial.println("Y-AXIS SUCCESSFULLY CALIBRATED.");
-          //SMC.step(false, Y_DIR, Y_STP, 0);
           delay(5000);
-         
+
+         // CALIBRATION FINISHED
           calibrate = 0;
 
           // RESET LIMIT SWTICH CHECKERS
@@ -66,8 +63,16 @@ class Commands {
           X_NEG = false;
           Y_POS = false;
           Y_NEG = false;
+          Z_POS = false;
+          Z_NEG = false;
         }
       }   
+    }
+
+    void beginSeedDistribution(){
+
+      
+      
     }
      
 

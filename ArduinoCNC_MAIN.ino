@@ -1,8 +1,6 @@
 #include "StepperMotorControl.h"
 #include "Commands.h"
 
-//boolean touched = false;
-
 void setup() {
   
   Serial.begin(9600);
@@ -34,8 +32,11 @@ void loop() {
       Serial.println("-->XYZ ROBOT CALIBRATION SUCCESS.");
       idle = 1;
     }  
-  } else{
+  } else if(DONE == 0 && idle == 1){
     Serial.println("Nothing to do.");
+    DONE = 1;
+  } else if(DONE == 1 && idle == 1){
+    
   }
   
 }

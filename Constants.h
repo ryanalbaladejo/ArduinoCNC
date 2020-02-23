@@ -22,6 +22,9 @@ extern char axis = 'X';
 
 // RPI HARDCODED COMMANDS
 extern int calibrate = 1;
+extern int water     = 1;
+extern int seed      = 1;
 
 // IDLE
 extern boolean idle = 0;
+extern boolean DONE = 0;
