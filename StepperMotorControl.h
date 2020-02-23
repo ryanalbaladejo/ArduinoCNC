@@ -18,8 +18,6 @@ class StepperMotorControl {
       DirPin = dirPin;
       StepperPin = stepperPin;
       Steps = steps;
-  
-      //int delayTime;
       
       digitalWrite(dirPin, dir);
       
@@ -28,10 +26,9 @@ class StepperMotorControl {
         delayMicroseconds(delayTime);
         digitalWrite(stepperPin, LOW);
         delayMicroseconds(delayTime);
-        //Serial.println(delayTime);
       }
 
-      if (dir == true && steps !=0) {
+      if (dir) {
         if (dirPin == X_DIR) {
           X_VAL = X_VAL + 1;
         } else if (dirPin == Y_DIR) {
@@ -39,7 +36,7 @@ class StepperMotorControl {
         } else if (dirPin == Z_DIR) {
           Z_VAL = Z_VAL + 1;
         }
-      } else if(dir == false && steps !=0) {
+      } else {
         if (dirPin == X_DIR) {
           X_VAL = X_VAL - 1;
         } else if (dirPin == Y_DIR) {
@@ -48,10 +45,10 @@ class StepperMotorControl {
           Z_VAL = Z_VAL - 1;
         }
       }
+      
       Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
-
+      
     }
-
 };
 
 StepperMotorControl SMC;

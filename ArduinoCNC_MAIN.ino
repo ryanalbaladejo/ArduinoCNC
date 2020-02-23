@@ -27,12 +27,12 @@ void setup() {
 
 void loop() {
 
-if(calibrate == 1){
-  delay(100);
-  AGE.beginCalbiration();
-} else {
-  Serial.println("-->XYZ ROBOT CALIBRATION SUCCESS.");
-  delay(10000000);
-}
+  if(calibrate == 1){
+    delay(100);
+    AGE.beginCalbiration();
+  } else {
+    Serial.println("-->XYZ ROBOT CALIBRATION SUCCESS.");
+    delay(10000000);
+  }
 
 }
