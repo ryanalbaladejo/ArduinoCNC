@@ -30,13 +30,21 @@ void loop() {
   if (idle == 0) {
     if (calibrate == 1) {
       //AGE.beginCalbiration();
-            AGE.beginSeedDistribution();
-
+      //AGE.beginSeedDistribution();
+      AGE.beginWateringProcess();
     } else if (calibrate == 0) {
       Serial.println("-->XYZ ROBOT CALIBRATION SUCCESS.");
       idle = 1;
     } else if (seed == 1) {
       AGE.beginSeedDistribution();
+    } else if (seed == 0) {
+      Serial.println("-->SEEDING SUCCESSFULLY COMPLETED.");
+      idle = 1;
+    } else if (water == 1) {
+      AGE.beginWateringProcess();
+    } else if (water == 0) {
+      Serial.println("-->WATERING SUCCESSFULLY COMPLETED.");
+      idle = 1;
     }
   } else if (DONE == 0 && idle == 1) {
     Serial.println("Nothing to do.");

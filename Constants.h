@@ -25,7 +25,7 @@ extern long int Y_MAX = 43;
 extern long int Z_MIN = 0;
 extern long int Z_MAX = 0;
 
-// MOTOR COORDINATES AFTER CALIBRATION
+// MOTOR COORDINATES AFTER SUCCESSFUL CALIBRATION
 
 extern long int X_VAL = X_MIN;
 extern long int Y_VAL = Y_MIN;

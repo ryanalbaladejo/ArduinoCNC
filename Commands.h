@@ -7,6 +7,8 @@ class Commands {
     // 3-AXIS CALIBRATION
     void beginCalbiration() {
 
+      int first = 1;
+
       if (axis == 'X') {          // X-AXIS CALIBRATION
 
         if (digitalRead(X_LIM) == HIGH && X_POS == false) {
@@ -15,7 +17,10 @@ class Commands {
         } else if (digitalRead(X_LIM) == LOW && X_POS == false) {
           Serial.println("X_POS TOUCHED");
           X_POS = true;
-          delay(3000);
+          if (X_POS == true) {
+            SMC.step(false, X_DIR, X_STP, stps);    // GO BACK ONE STEP
+          }
+          delay(1000);
         } else if (digitalRead(X_LIM) == HIGH && X_NEG == false) {
           SMC.step(false, X_DIR, X_STP, stps);
           Serial.println("MOVING X-AXIS TO THE LEFT.");
@@ -24,11 +29,11 @@ class Commands {
           delay(1000);
           Serial.println("Now stopping motion along X-AXIS.");
           X_NEG = true;
-          delay(3000);
+          delay(1000);
         } else if (X_POS == true && X_NEG == true) {
           Serial.println("MOTION ALONG X-AXIS STOPPED.");
           Serial.println("X-AXIS SUCCESSFULLY CALIBRATED.");
-          delay(5000);
+          delay(3000);
           axis = 'Y';
         }
 
@@ -40,7 +45,10 @@ class Commands {
         } else if (digitalRead(Y_LIM) == LOW && Y_POS == false) {
           Serial.println("Y_POS TOUCHED");
           Y_POS = true;
-          delay(3000);
+          if (Y_POS == true) {
+            SMC.step(false, Y_DIR, Y_STP, stps);    // GO BACK ONE STEP
+          }
+          delay(1000);
         } else if (digitalRead(Y_LIM) == HIGH && Y_NEG == false) {
           SMC.step(false, Y_DIR, Y_STP, stps);
           Serial.println("MOVING Y-AXIS DOWNWARD.");
@@ -49,11 +57,11 @@ class Commands {
           delay(1000);
           Serial.println("Now stopping motion along Y-AXIS.");
           Y_NEG = true;
-          delay(3000);
+          delay(1000);
         } else if (Y_POS == true && Y_NEG == true) {
           Serial.println("MOTION ALONG Y-AXIS STOPPED.");
           Serial.println("Y-AXIS SUCCESSFULLY CALIBRATED.");
-          delay(5000);
+          delay(3000);
 
           // CALIBRATION FINISHED
           calibrate = 0;
@@ -69,6 +77,8 @@ class Commands {
       }
     }
 
+
+    // FINALIZE ONLY IF ALAM NA SAN ILALAGAY YUNG SEED TRAY
     void beginSeedDistribution() {
 
       mode.check();
@@ -77,17 +87,37 @@ class Commands {
       // PRINT STARTING COORDINATES
       Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
+      // MOVE TO FIRST LOCATION
+      SMC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
+      Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
+      SMC.step(true, Y_DIR, Y_STP, stps * (ySeed - Y_MIN));
+      Serial.println((String)"Y MOVED " + (ySeed - Y_MIN) + (String)" CM.");
+      //Serial.println(xStart - X_MIN);
+      //delay(1000000);
+
+      Serial.println("Seeding process finished.");
+      calibrate = 0;    // for demo
+      seed = 0;
+    }
+
+    // WATERING
+    void beginWateringProcess() {
+
+      mode.check();
+      mode.assign();
+
+      // PRINT STARTING COORDINATES
+      Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
       // MOVE TO FIRST LOCATION
       SMC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
       Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
-      SMC.step(true, Y_DIR, Y_STP, stps * (yStart - Y_MIN));
-      Serial.println((String)"Y MOVED " + (yStart - Y_MIN) + (String)" CM.");
-      //Serial.println(xStart - X_MIN);
-      delay(1000000);
+      SMC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
+      Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
 
-
-
+      Serial.println("Watering process finished.");
+      calibrate = 0;    // for demo
+      water = 0;
     }
 
 

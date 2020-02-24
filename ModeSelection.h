@@ -10,7 +10,8 @@ class ModeSelection {
 
     void check() {
       
-      if (calibrate = 1){//digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {
+      if (calibrate = 1){
+        //digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {     // CALIBRATE = 1 FOR DEMO PURPOSES
         modeSelected = 1;
         Serial.println("MODE 1 SELECTED.");
       } else if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {
@@ -35,9 +36,10 @@ class ModeSelection {
           Serial.println("INVALID!");
           break;
          case 1:
-          xDistance = 15;
-          xStart = 31;
-          yStart = 15;
+          xSpace = MODE00_xSpace;
+          xStart = MODE00_xStart;
+          ySeed  = MODE00_ySeed;
+          yWater = MODE00_yWater;
           //Serial.println("Here");
           //Serial.println(xStart);
           
