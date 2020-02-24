@@ -52,7 +52,7 @@ void loop() {
     if(digitalRead(seedPin) == HIGH){
       seed = 1;
     } else if(digitalRead(waterPin) == HIGH){
-      water = 1
+      water = 1;
     } else if(digitalRead(calibPin) == HIGH){
       calibrate = 1;
     } 
