@@ -65,7 +65,7 @@ class Commands {
           calibrate = 0;
           seed = 0;
           Serial.println("XYZ ROBOT CALIBRATED SUCCESSFULLY");
-          water = 1;        //PARA MAGWATER AFTER
+          water = 0;        //PARA MAGWATER AFTER
 
           // RESET LIMIT SWTICH CHECKERS
           X_POS = false;
@@ -100,6 +100,8 @@ class Commands {
       seed = 0;
       water = 0;
     }
+
+
 
     // WATERING
     void beginWateringProcess() {

@@ -15,6 +15,10 @@ void setup() {
   pinMode(Y_STP, OUTPUT);
   pinMode(Z_STP, OUTPUT);
 
+  pinMode(seedPin, INPUT);
+  pinMode(waterPin, INPUT);
+  pinMode(calibPin, INPUT);
+
   pinMode(waterPump, OUTPUT);
 
   pinMode(EN, OUTPUT);
@@ -32,13 +36,13 @@ void loop() {
   if (idle == 0) {
     if (calibrate == 1 && water == 0 && seed == 0) {
       AGE.beginCalbiration();
-       //Serial.println("Calibrate: " + String(calibrate) + " Water: "+ String(water) + " Seed: " + String(seed));
+      Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));
     } else if (calibrate == 0 && water == 0 && seed == 1) {
       AGE.beginSeedDistribution();
-      //Serial.println("Calibrate: " + String(calibrate) + " Water: "+ String(water) + " Seed: " + String(seed));
+      Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));
     } else if (calibrate == 0 && water == 1 && seed == 0) {
       AGE.beginWateringProcess();
-       //Serial.println("Calibrate: " + String(calibrate) + " Water: "+ String(water) + " Seed: " + String(seed));
+      Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));
     } else if (calibrate == 0 && water == 0 && seed == 0) {
       idle = 1;
     }  else {
@@ -47,15 +51,34 @@ void loop() {
   } else if (DONE == 0 && idle == 1) {
     Serial.println("Nothing to do.");
     DONE = 1;
+    delay(15000);
   } else if (DONE == 1 && idle == 1) {
-    
-    if(digitalRead(seedPin) == HIGH){
+
+    if (digitalRead(seedPin) == HIGH && digitalRead(waterPin) == LOW && digitalRead(calibPin) == LOW) {
+      Serial.println("Seed pin set to HIGH.");
+      calibrate = 0;
       seed = 1;
-    } else if(digitalRead(waterPin) == HIGH){
+      water = 0;
+      idle = 0;
+      DONE = 0;
+      delay(1000);
+    } else if (digitalRead(seedPin) == LOW && digitalRead(waterPin) == HIGH && digitalRead(calibPin) == LOW) {
+      Serial.println("Water pin set to HIGH.");
+      calibrate = 0;
+      seed = 0;
       water = 1;
-    } else if(digitalRead(calibPin) == HIGH){
+      idle = 0;
+      DONE = 0;
+      delay(1000);
+    } else if (digitalRead(seedPin) == LOW && digitalRead(waterPin) == LOW && digitalRead(calibPin) == HIGH) {
+      Serial.println("Calibrate pin set to HIGH.");
       calibrate = 1;
-    } 
+      seed = 0;
+      water = 0;
+      idle = 0;
+      DONE = 0;
+      delay(1000);
+    }
     else {
       Serial.println("No tasks assigned.");
     }

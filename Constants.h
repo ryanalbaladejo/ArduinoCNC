@@ -43,5 +43,5 @@ extern int seed      = 0;
 
 // IDLE
 
-extern boolean idle = 0;
+extern boolean idle = 1;
 extern boolean DONE = 0;

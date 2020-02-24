@@ -19,8 +19,8 @@ extern int Z_LIM      = 11;
 // RPI-ARDUINO COMMUNICATION PINS
 extern int modePin0   =  22;               // MODE SELECTION:    00 - 5 X 2;   10 - 6 X 3
 extern int modePin1   =  23;               //                    01 - 4 X 2    11 - 4 X 3
-extern int seedPin    =  24;               // FOR SEEDING
-extern int waterPin   =  25;               // FOR WATERING
-extern int calibPin   =  26;               // FOR CALIBRATION
+extern int seedPin    =  38;               // FOR SEEDING
+extern int waterPin   =  40;               // FOR WATERING
+extern int calibPin   =  42;               // FOR CALIBRATION
 
 extern int waterPump  =  49;
