@@ -28,30 +28,50 @@ class StepperMotorControl {
         delayMicroseconds(delayTime);
       }
 
-      if (dir) {
-        if (dirPin == X_DIR) {
-          X_VAL = X_VAL + (steps/50);
-        } else if (dirPin == Y_DIR) {
-          Y_VAL = Y_VAL + (steps/50);
-        } else if (dirPin == Z_DIR) {
-          Z_VAL = Z_VAL + (steps/50);
+      if (calibrate == 1) {
+        // DO NOT PRINT COORDINATES DURING CALIBRATION
+        //Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
+      } else if (calibrate == 0) {
+        if (dir) {
+          if (dirPin == X_DIR) {
+            X_VAL = X_VAL + (steps / 50);
+          } else if (dirPin == Y_DIR) {
+            Y_VAL = Y_VAL + (steps / 50);
+          } else if (dirPin == Z_DIR) {
+            Z_VAL = Z_VAL + (steps / 50);
+          }
+        } else {
+          if (dirPin == X_DIR) {
+            X_VAL = X_VAL - (steps / 50);
+          } else if (dirPin == Y_DIR) {
+            Y_VAL = Y_VAL - (steps / 50);
+          } else if (dirPin == Z_DIR) {
+            Z_VAL = Z_VAL - (steps / 50);
+          }
         }
-      } else {
-        if (dirPin == X_DIR) {
-          X_VAL = X_VAL - (steps/50);
-        } else if (dirPin == Y_DIR) {
-          Y_VAL = Y_VAL - (steps/50);
-        } else if (dirPin == Z_DIR) {
-          Z_VAL = Z_VAL - (steps/50);
-        }
+
+        Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
+
       }
 
-      if (calibrate) {
-        // DO NOT PRINT COORDINATES DURING CALIBRATION
-        Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
-      } else if (calibrate == 0) {
-        Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
-      }
+    }
+
+    // ACTIVATE WATER PUMP
+
+    void startWateringFIRST() {
+      digitalWrite(waterPump, LOW);
+      Serial.println("ON: Water Pump");
+      delay(5000);
+      digitalWrite(waterPump, HIGH);
+      Serial.println("OFF: Water Pump");
+    }
+
+    void startWatering() {
+      digitalWrite(waterPump, LOW);
+      Serial.println("ON: Water Pump");
+      delay(3000);
+      digitalWrite(waterPump, HIGH);
+      Serial.println("OFF: Water Pump");
     }
 };
 

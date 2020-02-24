@@ -63,6 +63,9 @@ class Commands {
 
           // CALIBRATION FINISHED
           calibrate = 0;
+          seed = 0;
+          Serial.println("XYZ ROBOT CALIBRATED SUCCESSFULLY");
+          water = 1;        //PARA MAGWATER AFTER
 
           // RESET LIMIT SWTICH CHECKERS
           X_POS = false;
@@ -95,6 +98,7 @@ class Commands {
       Serial.println("Seeding process finished.");
       calibrate = 0;    // for demo
       seed = 0;
+      water = 0;
     }
 
     // WATERING
@@ -106,20 +110,62 @@ class Commands {
       // PRINT STARTING COORDINATES
       Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
-      // MOVE TO FIRST LOCATION
+      // MOVE TO FIRST ROW AND FIRST COLUMN
       SMC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
       Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
       SMC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
       Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
       delay(5000);
+      //delay(10000); //panglagay ng meter stick
+      SMC.startWateringFIRST();
 
-      for(int i = 1; i<= noOfCols
+      // TRAVEL TO REMAINING COLUMNS
+      for (int i = 1; i < noOfCols; i++) {
+        SMC.step(true, X_DIR, X_STP, stps * xSpace);
+        Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
+        delay(5000);
+        SMC.startWatering();
+      }
 
-      
+      // MOVE TO NEXT ROW
+      SMC.step(true, Y_DIR, Y_STP, stps * ySpace);
+      Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
+      delay(5000);
+      SMC.startWatering();
+
+
+      for (int i = 1; i < noOfCols; i++) {
+        SMC.step(false, X_DIR, X_STP, stps * xSpace);
+        Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
+        delay(5000);
+        SMC.startWatering();
+      }
+
+      if (digitalRead(modePin1) == 1) {
+        // MOVE TO NEXT ROW
+        SMC.step(true, Y_DIR, Y_STP, stps * ySpace);
+        Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
+      } else {
+
+      }
+
+      // MOVE TO LEFTMOST END ALONG X
+      SMC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN));
+      Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
+
+      // MOVE BACK TO ORIGIN
+      for (int i = 1; i < noOfRows; i++) {
+        SMC.step(false, Y_DIR, Y_STP, stps * ySpace);
+        Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
+      }
+
+      SMC.step(false, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
+      Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
 
       Serial.println("Watering process finished.");
       calibrate = 0;    // for demo
       water = 0;
+      seed = 0;
     }
 
 

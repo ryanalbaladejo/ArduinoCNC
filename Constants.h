@@ -16,8 +16,8 @@ extern boolean Z_NEG = false;
 
 // MAX / MIN REACH FOR EACH AXIS
 
-extern long int X_MIN = 16;
-extern long int X_MAX = 97;
+extern long int X_MIN = 15;
+extern long int X_MAX = 95;
 
 extern long int Y_MIN = 12;
 extern long int Y_MAX = 43;
@@ -37,9 +37,9 @@ extern char axis = 'X';
 
 // RPI HARDCODED COMMANDS
 
-extern int calibrate = 1;
-extern int water     = 1;
-extern int seed      = 1;
+extern int calibrate = 0;
+extern int water     = 0;
+extern int seed      = 0;
 
 // IDLE
 
