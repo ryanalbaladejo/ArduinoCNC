@@ -9,8 +9,8 @@ class ModeSelection {
     int modeSelected;
 
     void check() {
-      
-      if (calibrate = 1){
+
+      if (calibrate = 1) {
         //digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {     // CALIBRATE = 1 FOR DEMO PURPOSES
         modeSelected = 1;
         Serial.println("MODE 1 SELECTED.");
@@ -26,25 +26,53 @@ class ModeSelection {
       } else {
         Serial.println("INVALID MODE SELECTION.");
       }
-      
+
     }
 
     void assign() {
 
-      switch(modeSelected){
+      switch (modeSelected) {
         default:
           Serial.println("INVALID!");
           break;
-         case 1:
-          xSpace = MODE00_xSpace;
-          xStart = MODE00_xStart;
-          ySeed  = MODE00_ySeed;
-          yWater = MODE00_yWater;
-          //Serial.println("Here");
-          //Serial.println(xStart);
-          
+        case 1:
+          xSpace    = MODE00_xSpace;
+          xStart    = MODE00_xStart;
+          ySpace    = MODE00_ySpace;
+          ySeed     = MODE00_ySeed;
+          yWater    = MODE00_yWater;
+          noOfCols  = MODE00_noOfCols;
+          noOfRows  = MODE00_noOfRows;
+          break;
+        case 2:
+          xSpace    = MODE01_xSpace;
+          xStart    = MODE01_xStart;
+          ySpace    = MODE01_ySpace;
+          ySeed     = MODE01_ySeed;
+          yWater    = MODE01_yWater;
+          noOfCols  = MODE01_noOfCols;
+          noOfRows  = MODE01_noOfRows;
+          break;
+        case 3:
+          xSpace    = MODE10_xSpace;
+          xStart    = MODE10_xStart;
+          ySpace    = MODE10_ySpace;
+          ySeed     = MODE10_ySeed;
+          yWater    = MODE10_yWater;
+          noOfCols  = MODE10_noOfCols;
+          noOfRows  = MODE10_noOfRows;
+          break;
+        case 4:
+          xSpace    = MODE11_xSpace;
+          xStart    = MODE11_xStart;
+          ySpace    = MODE11_ySpace;
+          ySeed     = MODE11_ySeed;
+          yWater    = MODE11_yWater;
+          noOfCols  = MODE11_noOfCols;
+          noOfRows  = MODE11_noOfRows;
+          break;
       }
-        
+
     }
 
 };

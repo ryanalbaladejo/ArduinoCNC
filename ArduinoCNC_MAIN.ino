@@ -29,9 +29,9 @@ void loop() {
 
   if (idle == 0) {
     if (calibrate == 1) {
-      //AGE.beginCalbiration();
+      AGE.beginCalbiration();
       //AGE.beginSeedDistribution();
-      AGE.beginWateringProcess();
+      //AGE.beginWateringProcess();
     } else if (calibrate == 0) {
       Serial.println("-->XYZ ROBOT CALIBRATION SUCCESS.");
       idle = 1;

@@ -7,8 +7,6 @@ class Commands {
     // 3-AXIS CALIBRATION
     void beginCalbiration() {
 
-      int first = 1;
-
       if (axis == 'X') {          // X-AXIS CALIBRATION
 
         if (digitalRead(X_LIM) == HIGH && X_POS == false) {
@@ -77,7 +75,6 @@ class Commands {
       }
     }
 
-
     // FINALIZE ONLY IF ALAM NA SAN ILALAGAY YUNG SEED TRAY
     void beginSeedDistribution() {
 
@@ -114,6 +111,11 @@ class Commands {
       Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
       SMC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
       Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
+      delay(5000);
+
+      for(int i = 1; i<= noOfCols
+
+      
 
       Serial.println("Watering process finished.");
       calibrate = 0;    // for demo
