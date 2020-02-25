@@ -73,16 +73,28 @@ class Controls {
       Serial.println("OFF: Water Pump");
     }
 
-    // ACTIVATE
+    //
 
-    void startVacuumPump(){
-      digitalWrite(vacuumPump, LOW);
-      Serial.println("ON: Vacuum Pump"); 
+    void startWaterPump() {
+      digitalWrite(waterPump, LOW);
+      Serial.println("ON: Water Pump");
     }
 
-    void stopVacuumPump(){
+    void stopWaterPump() {
+      digitalWrite(waterPump, HIGH);
+      Serial.println("OFF: Water Pump");
+    }
+
+    // ACTIVATE
+
+    void startVacuumPump() {
       digitalWrite(vacuumPump, LOW);
-      Serial.println("ON: Vacuum Pump"); 
+      Serial.println("ON: Vacuum Pump");
+    }
+
+    void stopVacuumPump() {
+      digitalWrite(vacuumPump, HIGH);
+      Serial.println("OFF: Vacuum Pump");
     }
 };
 
