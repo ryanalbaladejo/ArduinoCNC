@@ -10,17 +10,17 @@ class Commands {
       if (axis == 'X') {          // X-AXIS CALIBRATION
 
         if (digitalRead(X_LIM) == HIGH && X_POS == false) {
-          SMC.step(true, X_DIR, X_STP, stps);
+          MPC.step(true, X_DIR, X_STP, stps);
           Serial.println("MOVING X-AXIS TO THE RIGHT.");
         } else if (digitalRead(X_LIM) == LOW && X_POS == false) {
           Serial.println("X_POS TOUCHED");
           X_POS = true;
           if (X_POS == true) {
-            SMC.step(false, X_DIR, X_STP, stps);    // GO BACK ONE STEP
+            MPC.step(false, X_DIR, X_STP, stps);    // GO BACK ONE STEP
           }
           delay(1000);
         } else if (digitalRead(X_LIM) == HIGH && X_NEG == false) {
-          SMC.step(false, X_DIR, X_STP, stps);
+          MPC.step(false, X_DIR, X_STP, stps);
           Serial.println("MOVING X-AXIS TO THE LEFT.");
         } else if (digitalRead(X_LIM) == LOW && X_NEG == false) {
           Serial.println("X_NEG TOUCHED");
@@ -38,17 +38,17 @@ class Commands {
       } else if (axis == 'Y') {   // Y-AXIS CALIBRATION
 
         if (digitalRead(Y_LIM) == HIGH && Y_POS == false) {
-          SMC.step(true, Y_DIR, Y_STP, stps);
+          MPC.step(true, Y_DIR, Y_STP, stps);
           Serial.println("MOVING Y-AXIS UPWARD.");
         } else if (digitalRead(Y_LIM) == LOW && Y_POS == false) {
           Serial.println("Y_POS TOUCHED");
           Y_POS = true;
           if (Y_POS == true) {
-            SMC.step(false, Y_DIR, Y_STP, stps);    // GO BACK ONE STEP
+            MPC.step(false, Y_DIR, Y_STP, stps);    // GO BACK ONE STEP
           }
           delay(1000);
         } else if (digitalRead(Y_LIM) == HIGH && Y_NEG == false) {
-          SMC.step(false, Y_DIR, Y_STP, stps);
+          MPC.step(false, Y_DIR, Y_STP, stps);
           Serial.println("MOVING Y-AXIS DOWNWARD.");
         } else if (digitalRead(Y_LIM) == LOW && Y_NEG == false) {
           Serial.println("Y_NEG TOUCHED");
@@ -88,9 +88,9 @@ class Commands {
       Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
       // MOVE TO FIRST LOCATION
-      SMC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
+      MPC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
       Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
-      SMC.step(true, Y_DIR, Y_STP, stps * (ySeed - Y_MIN));
+      MPC.step(true, Y_DIR, Y_STP, stps * (ySeed - Y_MIN));
       Serial.println((String)"Y MOVED " + (ySeed - Y_MIN) + (String)" CM.");
       //Serial.println(xStart - X_MIN);
       //delay(1000000);
@@ -113,55 +113,55 @@ class Commands {
       Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
       // MOVE TO FIRST ROW AND FIRST COLUMN
-      SMC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
+      MPC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
       Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
-      SMC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
+      MPC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
       Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
       delay(5000);
       //delay(10000); //panglagay ng meter stick
-      SMC.startWateringFIRST();
+      MPC.startWateringFIRST();
 
       // TRAVEL TO REMAINING COLUMNS
       for (int i = 1; i < noOfCols; i++) {
-        SMC.step(true, X_DIR, X_STP, stps * xSpace);
+        MPC.step(true, X_DIR, X_STP, stps * xSpace);
         Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
         delay(5000);
-        SMC.startWatering();
+        MPC.startWatering();
       }
 
       // MOVE TO NEXT ROW
-      SMC.step(true, Y_DIR, Y_STP, stps * ySpace);
+      MPC.step(true, Y_DIR, Y_STP, stps * ySpace);
       Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
       delay(5000);
-      SMC.startWatering();
+      MPC.startWatering();
 
 
       for (int i = 1; i < noOfCols; i++) {
-        SMC.step(false, X_DIR, X_STP, stps * xSpace);
+        MPC.step(false, X_DIR, X_STP, stps * xSpace);
         Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
         delay(5000);
-        SMC.startWatering();
+        MPC.startWatering();
       }
 
       if (digitalRead(modePin1) == 1) {
         // MOVE TO NEXT ROW
-        SMC.step(true, Y_DIR, Y_STP, stps * ySpace);
+        MPC.step(true, Y_DIR, Y_STP, stps * ySpace);
         Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
       } else {
 
       }
 
       // MOVE TO LEFTMOST END ALONG X
-      SMC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN));
+      MPC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN));
       Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
 
       // MOVE BACK TO ORIGIN
       for (int i = 1; i < noOfRows; i++) {
-        SMC.step(false, Y_DIR, Y_STP, stps * ySpace);
+        MPC.step(false, Y_DIR, Y_STP, stps * ySpace);
         Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
       }
 
-      SMC.step(false, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
+      MPC.step(false, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
       Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
 
       Serial.println("Watering process finished.");

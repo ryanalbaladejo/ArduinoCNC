@@ -1,7 +1,7 @@
 #include "PinConfiguration.h"
 #include "Constants.h"
 
-class StepperMotorControl {
+class Controls {
 
   private:
 
@@ -74,4 +74,4 @@ class StepperMotorControl {
     }
 };
 
-StepperMotorControl SMC;
+Controls MPC;
