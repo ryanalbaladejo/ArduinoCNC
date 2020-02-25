@@ -72,6 +72,18 @@ class Controls {
       digitalWrite(waterPump, HIGH);
       Serial.println("OFF: Water Pump");
     }
+
+    // ACTIVATE
+
+    void startVacuumPump(){
+      digitalWrite(vacuumPump, LOW);
+      Serial.println("ON: Vacuum Pump"); 
+    }
+
+    void stopVacuumPump(){
+      digitalWrite(vacuumPump, LOW);
+      Serial.println("ON: Vacuum Pump"); 
+    }
 };
 
 Controls MPC;

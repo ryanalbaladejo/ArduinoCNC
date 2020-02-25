@@ -20,6 +20,7 @@ void setup() {
   pinMode(calibPin, INPUT);
 
   pinMode(waterPump, OUTPUT);
+  pinMode(vacuumPump, OUTPUT);
 
   pinMode(EN, OUTPUT);
 
@@ -29,6 +30,7 @@ void setup() {
 
   digitalWrite(EN, LOW);
   digitalWrite(waterPump, HIGH);    // WATER PUMP : OFF
+  digitalWrite(vacuumPump, HIGH);   // VACUUM PUMP : OFF
 }
 
 void loop() {

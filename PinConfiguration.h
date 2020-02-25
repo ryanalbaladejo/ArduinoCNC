@@ -24,3 +24,4 @@ extern int waterPin   =  40;               // FOR WATERING
 extern int calibPin   =  42;               // FOR CALIBRATION
 
 extern int waterPump  =  49;
+extern int vacuumPump =  50;
