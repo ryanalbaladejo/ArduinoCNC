@@ -168,6 +168,18 @@ class Commands {
     }
 
     // WATERING
+
+//      For visualization:      X - starting point
+//      
+//          modePin0 = 0:                   |       modePin = 1;
+//                                          |
+//                <<<<<<<<<<<<<<<^          |             ^>>>>>>>>>>>>>>>>
+//                               ^          |             ^
+//                               ^          |             ^<<<<<<<<<<<<<<<^
+//                               ^          |                             ^
+//          X     >>>>>>>>>>>>>>>^          |       X     >>>>>>>>>>>>>>>>^
+//                                          |
+                 
     void beginWateringProcess() {
 
       mode.check();
@@ -214,8 +226,9 @@ class Commands {
         MPC.stopWaterPump();
       }
 
-      if (digitalRead(modePin1) == 1) {                                               // READS MODE PIN FROM RPI : if modePin1 = 0; then noOfCols = 2
-        // MOVE TO 3RD ROW                                                                                            modePin1 = 1; then noOfCols = 3
+      // [FOR TESTING IN WATERING] IF MODE 3 OR MODE 4 IS SELECTED, CHANGE ARGUMENT.
+      if (digitalRead(modePin1) == 1) {                                                   // READS MODE PIN FROM RPI : if modePin1 = 0; then noOfCols = 2
+        // MOVE TO 3RD ROW                                                                                                modePin1 = 1; then noOfCols = 3
         MPC.step(true, Y_DIR, Y_STP, stps * ySpace);
         Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
 

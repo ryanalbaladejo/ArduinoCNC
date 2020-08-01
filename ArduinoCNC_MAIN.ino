@@ -8,8 +8,14 @@
 //                          3. After selecting the process, go to ModeSelection.h and replace the 
 //                             argument in one of the if/else in check() with the process you selected. 
 //                             By selecting a branch, you are also selecting a mode.
-//                             
 //
+//                             ADDITIONAL STEP IF SEEDING/WATERING:
+//                             a. Press Ctrl+F on Commands.h and search for:
+//                                    "[FOR TESTING IN WATERING]" - if watering is being tested
+//                                    "[FOR TESTING IN SEEDING]" - if seeding is being tested
+//                             b. Change the argument to "seed = 1" or "water = 1" depending on the
+//                                process being simulated.
+//                                      
 //                                EXAMPLE: 
 //
 //                                Scenario: You wish to perform the watering process with the robot
