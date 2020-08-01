@@ -9,18 +9,19 @@ class ModeSelection {
     int modeSelected;
 
     void check() {
-
-      if (calibrate = 1) {
-        //digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {     // CALIBRATE = 1 FOR DEMO PURPOSES
+      
+      // NOTE: CHANGE ARGUMENT IF TESTING (See ArduinoCNC_MAIN for instructions.)
+      
+      if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {   
         modeSelected = 1;
         Serial.println("MODE 1 SELECTED.");
-      } else if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {
+      } else if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 1) {
         modeSelected = 2;
         Serial.println("MODE 2 SELECTED.");
-      } else if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {
+      } else if (digitalRead(modePin1) == 1 && digitalRead(modePin0) == 0) {
         modeSelected = 3;
         Serial.println("MODE 3 SELECTED.");
-      } else if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {
+      } else if (digitalRead(modePin1) == 1 && digitalRead(modePin0) == 1) {
         modeSelected = 4;
         Serial.println("MODE 4 SELECTED.");
       } else {

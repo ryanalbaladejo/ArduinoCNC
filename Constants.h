@@ -1,6 +1,6 @@
 // STEPPER MOTOR SETTINGS
 
-extern int delayTime = 1000;         //Delay between each pause (uS); The smaller the value, the faster the revolution.
+extern int delayTime = 1000;         // Delay between each pause (uS); The smaller the value, the faster the revolution.
 extern long int stps = 50;           // microsteps per revolution with 1/32 microstepping    [50 steps = 1 cm travel]
 
 // LIMIT SWITCH CHECKERS
@@ -11,8 +11,7 @@ extern boolean X_NEG = false;    // X LEFT LIMIT SWITCH
 extern boolean Y_POS = false;    // Y DOWN LIMIT SWITCH
 extern boolean Y_NEG = false;    // Y UP LIMIT SWITCH
 
-extern boolean Z_POS = false;
-extern boolean Z_NEG = false;
+extern boolean Z_POS = false;    // Z LIMIT SWITCH
 
 // MAX / MIN REACH FOR EACH AXIS
 
@@ -33,9 +32,9 @@ extern long int Z_VAL = Z_MIN;
 
 // AXIS
 
-extern char axis = 'X';
+extern char axis = 'Z';
 
-// RPI HARDCODED COMMANDS
+// RPI HARDCODED COMMANDS       <--  NOTE: CHANGE FROM 0 -> 1 IF TESTING (See ArduinoCNC_MAIN for instructions.)
 
 extern int calibrate = 0;
 extern int water     = 0;
@@ -45,3 +44,7 @@ extern int seed      = 0;
 
 extern boolean idle = 1;
 extern boolean DONE = 0;
+
+// Z SEEDING DEPTH
+
+extern boolean Z_SEED = 10;

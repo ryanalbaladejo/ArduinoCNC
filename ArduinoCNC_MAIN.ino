@@ -2,6 +2,26 @@
 #include "ModeSelection.h"
 #include "Commands.h"
 
+// FOR TESTING PURPOSES:    1. Go to Constants.h and look for section "// RPI HARDCODED COMMANDS".
+//                          2. Select the process you wish to perform on the robot and change the 
+//                             value 0 -> 1. (PICK ONE ONLY)
+//                          3. After selecting the process, go to ModeSelection.h and replace the 
+//                             argument in one of the if/else in check() with the process you selected. 
+//                             By selecting a branch, you are also selecting a mode.
+//                             
+//
+//                                EXAMPLE: 
+//
+//                                Scenario: You wish to perform the watering process with the robot
+//                                          and you want it to use the 6 x 3 setting [MODE 3].
+//
+//                                - Set < calibrate = "1" > under Constants.h
+//                                - Replace argument containing modeSelected = 3 with < water = "1" >
+//
+//                                    FROM    if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0)
+//                                    TO      if (water = "1")
+//
+//                                - Upload and run the program.                          
 
 void setup() {
 
@@ -38,13 +58,13 @@ void loop() {
   if (idle == 0) {
     if (calibrate == 1 && water == 0 && seed == 0) {
       AGE.beginCalbiration();
-      Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));
+      //Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));    //FOR DEBUGGING
     } else if (calibrate == 0 && water == 0 && seed == 1) {
       AGE.beginSeedDistribution();
-      Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));
+      //Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));    //FOR DEBUGGING
     } else if (calibrate == 0 && water == 1 && seed == 0) {
       AGE.beginWateringProcess();
-      Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));
+      //Serial.println("Calibrate: " + String(calibrate) + " Water: " + String(water) + " Seed: " + String(seed));    //FOR DEBUGGING
     } else if (calibrate == 0 && water == 0 && seed == 0) {
       idle = 1;
     }  else {
@@ -53,7 +73,7 @@ void loop() {
   } else if (DONE == 0 && idle == 1) {
     Serial.println("Nothing to do.");
     DONE = 1;
-    delay(15000);
+    delay(3000);
   } else if (DONE == 1 && idle == 1) {
 
     if (digitalRead(seedPin) == HIGH && digitalRead(waterPin) == LOW && digitalRead(calibPin) == LOW) {
@@ -83,6 +103,12 @@ void loop() {
     }
     else {
       Serial.println("No tasks assigned.");
+      delay(1000);
+      calibrate = 1;
+      water = 0;
+      seed = 0;
+      DONE = 0;
+      idle = 0;
     }
   }
 

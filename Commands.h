@@ -7,7 +7,25 @@ class Commands {
     // 3-AXIS CALIBRATION
     void beginCalbiration() {
 
-      if (axis == 'X') {          // X-AXIS CALIBRATION
+      // Z-AXIS CALIBRATION
+      if (axis == 'Z') {
+
+        if (digitalRead(Z_LIM) == HIGH && Z_POS == false) {
+          MPC.step(true, Z_DIR, Z_STP, stps);
+          Serial.println("MOVING Z-AXIS UPWARD.");
+        } else if (digitalRead(Z_LIM) == LOW && Z_POS == false) {
+          Serial.println("Z_POS TOUCHED");
+          Z_POS = true;
+          Serial.println("MOTION ALONG Z-AXIS STOPPED.");
+          Serial.println("Z-AXIS SUCCESSFULLY CALIBRATED.");
+          delay(3000);
+          axis = 'X';
+        }
+
+      }
+
+      // X-AXIS CALIBRATION
+      else if (axis == 'X') {
 
         if (digitalRead(X_LIM) == HIGH && X_POS == false) {
           MPC.step(true, X_DIR, X_STP, stps);
@@ -35,7 +53,10 @@ class Commands {
           axis = 'Y';
         }
 
-      } else if (axis == 'Y') {   // Y-AXIS CALIBRATION
+      }
+
+      // Y-AXIS CALIBRATION
+      else if (axis == 'Y') {
 
         if (digitalRead(Y_LIM) == HIGH && Y_POS == false) {
           MPC.step(true, Y_DIR, Y_STP, stps);
@@ -63,9 +84,9 @@ class Commands {
 
           // CALIBRATION FINISHED
           calibrate = 0;
-          seed = 0;
+          seed = 1;
           Serial.println("XYZ ROBOT CALIBRATED SUCCESSFULLY");
-          water = 0;        //PARA MAGWATER AFTER
+          water = 0;
 
           // RESET LIMIT SWTICH CHECKERS
           X_POS = false;
@@ -73,12 +94,12 @@ class Commands {
           Y_POS = false;
           Y_NEG = false;
           Z_POS = false;
-          Z_NEG = false;
         }
       }
     }
 
-    // FINALIZE ONLY IF ALAM NA SAN ILALAGAY YUNG SEED TRAY
+
+    // SEEDING
     void beginSeedDistribution() {
 
       mode.check();
@@ -87,21 +108,64 @@ class Commands {
       // PRINT STARTING COORDINATES
       Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
-      // MOVE TO FIRST LOCATION
-      MPC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
-      Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
-      MPC.step(true, Y_DIR, Y_STP, stps * (ySeed - Y_MIN));
-      Serial.println((String)"Y MOVED " + (ySeed - Y_MIN) + (String)" CM.");
-      //Serial.println(xStart - X_MIN);
-      //delay(1000000);
+      for (int i = 0; i < noOfRows; i++) {
+        for (int j = noOfCols; j > 0; j--) {
+          for (int k = 0; k < noOfSeeds; k++) {
+
+            // MOVE TO FIRST ROW AND FIRST COLUMN
+            MPC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
+            Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
+            MPC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
+            Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
+            MPC.step(false, Z_DIR, Z_STP, stps * zDepth);
+            MPC.stopVacuumPump();
+            MPC.step(true, Z_DIR, Z_STP, stps * zDepth);
+            MPC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
+            Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
+            MPC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
+            Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
+
+
+
+
+
+            //            while (digitalRead(X_LIM) == HIGH) {                                      // GO TO 1ST X-COORDINATE
+            //              MPC.step(true, X_DIR, X_STP, stps);
+            //            }
+            //            while (digitalRead(Z_LIM) == HIGH) {
+            //              MPC.step(false, Z_DIR, Z_STP, stps);
+            //            }
+            //            MPC.startVacuumPump();
+            //            while (digitalRead(Z_LIM) == HIGH) {
+            //              MPC.step(true, Z_DIR, Z_STP, stps);
+            //            }
+            //            if (j == noOfCols) {
+            //              MPC.step(false, X_DIR, X_STP, stps * j * xSpace + xStart - X_MIN);
+            //            }
+            //            else {
+            //              MPC.step(false, X_DIR, X_STP, stps * j * xSpace);
+            //            }
+            //            MPC.step(true, Y_DIR, Y_STP, stps * (ySeed - Y_MIN) * (i + 1) );
+            //            while (digitalRead(Z_LIM) == HIGH) {
+            //              MPC.step(false, Z_DIR, Z_STP, stps);
+            //            }
+            //            MPC.stopVacuumPump();
+            //            delay(3000);
+            //            while (digitalRead(Z_LIM) == HIGH) {
+            //              MPC.step(true, Z_DIR, Z_STP, stps);
+            //            }
+
+
+          }
+        }
+      }
 
       Serial.println("Seeding process finished.");
-      calibrate = 0;    // for demo
+      calibrate = 0;
       seed = 0;
       water = 0;
+
     }
-
-
 
     // WATERING
     void beginWateringProcess() {
@@ -112,43 +176,60 @@ class Commands {
       // PRINT STARTING COORDINATES
       Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
-      // MOVE TO FIRST ROW AND FIRST COLUMN
+      // MOVE TO 1ST ROW AND 1ST COLUMN
       MPC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
       Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
       MPC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
       Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
       delay(5000);
-      //delay(10000); //panglagay ng meter stick
-      MPC.startWateringFIRST();
+      MPC.startWaterPump();
+      delay(3000);
+      MPC.stopWaterPump();
 
-      // TRAVEL TO REMAINING COLUMNS
+      // TRAVEL TO REMAINING COLUMNS OF 1ST ROW  [L -> R]
       for (int i = 1; i < noOfCols; i++) {
         MPC.step(true, X_DIR, X_STP, stps * xSpace);
         Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
         delay(5000);
-        MPC.startWatering();
+        MPC.startWaterPump();
+        delay(3000);
+        MPC.stopWaterPump();
       }
 
-      // MOVE TO NEXT ROW
+      // MOVE TO 2ND ROW
       MPC.step(true, Y_DIR, Y_STP, stps * ySpace);
       Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
       delay(5000);
-      MPC.startWatering();
+      MPC.startWaterPump();
+      delay(3000);
+      MPC.stopWaterPump();
 
-
+      // TRAVEL TO REMAINING COLUMNS OF 2ND ROW  [L <- R]
       for (int i = 1; i < noOfCols; i++) {
         MPC.step(false, X_DIR, X_STP, stps * xSpace);
         Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
         delay(5000);
-        MPC.startWatering();
+        MPC.startWaterPump();
+        delay(3000);
+        MPC.stopWaterPump();
       }
 
-      if (digitalRead(modePin1) == 1) {
-        // MOVE TO NEXT ROW
+      if (digitalRead(modePin1) == 1) {                                               // READS MODE PIN FROM RPI : if modePin1 = 0; then noOfCols = 2
+        // MOVE TO 3RD ROW                                                                                            modePin1 = 1; then noOfCols = 3
         MPC.step(true, Y_DIR, Y_STP, stps * ySpace);
         Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
-      } else {
 
+        // TRAVEL TO REMAINING COLUMNS OF 3RD ROW  [L -> R]
+        for (int i = 1; i < noOfCols; i++) {
+          MPC.step(true, X_DIR, X_STP, stps * xSpace);
+          Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
+          delay(5000);
+          MPC.startWaterPump();
+          delay(3000);
+          MPC.stopWaterPump();
+        }
+      } else {
+        // SKIP AND DO NOTHING
       }
 
       // MOVE TO LEFTMOST END ALONG X
@@ -165,11 +246,11 @@ class Commands {
       Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
 
       Serial.println("Watering process finished.");
-      calibrate = 0;    // for demo
+      calibrate = 0;
       water = 0;
       seed = 0;
-    }
 
+    }
 
 };
 

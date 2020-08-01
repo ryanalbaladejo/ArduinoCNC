@@ -12,6 +12,8 @@ class Controls {
 
   public:
 
+    // ACTIVATE STEPPER MOTOR
+
     void step(boolean dir, byte dirPin, byte stepperPin, long int steps) {
 
       Dir = dir;
@@ -31,7 +33,7 @@ class Controls {
       if (calibrate == 1) {
         // DO NOT PRINT COORDINATES DURING CALIBRATION
         //Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
-      } else if (calibrate == 0) {
+      } else {
         if (dir) {
           if (dirPin == X_DIR) {
             X_VAL = X_VAL + (steps / 50);
@@ -49,7 +51,6 @@ class Controls {
             Z_VAL = Z_VAL - (steps / 50);
           }
         }
-
         Serial.println((String)"X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
       }
 
@@ -57,45 +58,36 @@ class Controls {
 
     // ACTIVATE WATER PUMP
 
-    void startWateringFIRST() {
-      digitalWrite(waterPump, LOW);
-      Serial.println("ON: Water Pump");
-      delay(5000);
-      digitalWrite(waterPump, HIGH);
-      Serial.println("OFF: Water Pump");
-    }
-
-    void startWatering() {
-      digitalWrite(waterPump, LOW);
-      Serial.println("ON: Water Pump");
-      delay(3000);
-      digitalWrite(waterPump, HIGH);
-      Serial.println("OFF: Water Pump");
-    }
-
-    //
-
     void startWaterPump() {
+
       digitalWrite(waterPump, LOW);
       Serial.println("ON: Water Pump");
+
     }
 
     void stopWaterPump() {
+
       digitalWrite(waterPump, HIGH);
       Serial.println("OFF: Water Pump");
+
     }
 
-    // ACTIVATE
+    // ACTIVATE VACUUM PUMP
 
     void startVacuumPump() {
+
       digitalWrite(vacuumPump, LOW);
       Serial.println("ON: Vacuum Pump");
+
     }
 
     void stopVacuumPump() {
+
       digitalWrite(vacuumPump, HIGH);
       Serial.println("OFF: Vacuum Pump");
+
     }
+
 };
 
 Controls MPC;
