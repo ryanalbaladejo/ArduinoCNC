@@ -169,17 +169,17 @@ class Commands {
 
     // WATERING
 
-//      For visualization:      X - starting point
-//      
-//          modePin0 = 0:                   |       modePin = 1;
-//                                          |
-//                <<<<<<<<<<<<<<<^          |             ^>>>>>>>>>>>>>>>>
-//                               ^          |             ^
-//                               ^          |             ^<<<<<<<<<<<<<<<^
-//                               ^          |                             ^
-//          X     >>>>>>>>>>>>>>>^          |       X     >>>>>>>>>>>>>>>>^
-//                                          |
-                 
+    //      For visualization:      X - starting point
+    //
+    //          modePin0 = 0:                   |       modePin = 1;
+    //                                          |
+    //                <<<<<<<<<<<<<<<^          |             ^>>>>>>>>>>>>>>>>
+    //                               ^          |             ^
+    //                               ^          |             ^<<<<<<<<<<<<<<<^
+    //                               ^          |                             ^
+    //          X     >>>>>>>>>>>>>>>^          |       X     >>>>>>>>>>>>>>>>^
+    //                                          |
+
     void beginWateringProcess() {
 
       mode.check();
@@ -231,6 +231,10 @@ class Commands {
         // MOVE TO 3RD ROW                                                                                                modePin1 = 1; then noOfCols = 3
         MPC.step(true, Y_DIR, Y_STP, stps * ySpace);
         Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
+        delay(5000);
+        MPC.startWaterPump();
+        delay(3000);
+        MPC.stopWaterPump();
 
         // TRAVEL TO REMAINING COLUMNS OF 3RD ROW  [L -> R]
         for (int i = 1; i < noOfCols; i++) {

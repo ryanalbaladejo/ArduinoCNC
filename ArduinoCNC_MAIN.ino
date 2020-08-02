@@ -7,7 +7,7 @@
 //                             value 0 -> 1. (PICK ONE ONLY)
 //                          3. After selecting the process, go to ModeSelection.h and replace the 
 //                             argument in one of the if/else in check() with the process you selected. 
-//                             By selecting a branch, you are also selecting a mode.
+//                          4. Set modeSelected into the mode setting you wish to apply. [Input 1/2/3/4]
 //
 //                             ADDITIONAL STEP IF SEEDING/WATERING:
 //                             a. Press Ctrl+F on Commands.h and search for:

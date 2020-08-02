@@ -10,7 +10,7 @@ class ModeSelection {
 
     void check() {
       
-      // NOTE: CHANGE ARGUMENT IF TESTING (See ArduinoCNC_MAIN for instructions.)
+      // NOTE: CHANGE ARGUMENT AND MODESELECTED VALUE IF TESTING (See ArduinoCNC_MAIN for instructions.)
       
       if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {   
         modeSelected = 1;
