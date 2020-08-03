@@ -12,8 +12,8 @@ class ModeSelection {
       
       // NOTE: CHANGE ARGUMENT AND MODESELECTED VALUE IF TESTING (See ArduinoCNC_MAIN for instructions.)
       
-      if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {   
-        modeSelected = 1;
+      if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0) {                 // <---- CHANGE ARGUMENT TO THE PROCESS BEING TESTED.
+        modeSelected = 1;                                                             // <---- CHANGE THIS VALUE TO 1/2/3/4 WHEN TESTING DIFFERENT MODES.
         Serial.println("MODE 1 SELECTED.");
       } else if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 1) {
         modeSelected = 2;

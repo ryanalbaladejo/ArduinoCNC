@@ -245,13 +245,21 @@ class Commands {
           delay(3000);
           MPC.stopWaterPump();
         }
-      } else {
-        // SKIP AND DO NOTHING
-      }
+        
+        // MOVE TO 1ST X-COORDINATE (3RD ROW VERSION)
+        for (int j = noOfCols; j > 0; j--) {
+          MPC.step(false, X_DIR, X_STP, stps * xSpace);
+          Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
+        }
+        // MOVE TO LEFTMOST END ALONG X 
+        MPC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN));
+        Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
 
-      // MOVE TO LEFTMOST END ALONG X
-      MPC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN));
-      Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
+      } else {
+        // MOVE TO LEFTMOST END ALONG X
+        MPC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN));
+        Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
+      }
 
       // MOVE BACK TO ORIGIN
       for (int i = 1; i < noOfRows; i++) {

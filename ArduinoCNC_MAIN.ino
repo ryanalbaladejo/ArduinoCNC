@@ -22,11 +22,12 @@
 //                                          and you want it to use the 6 x 3 setting [MODE 3].
 //
 //                                - Set < calibrate = "1" > under Constants.h
-//                                - Replace argument containing modeSelected = 3 with < water = "1" >
+//                                - Replace argument containing modeSelected = 1 with < water == "1" >
 //
 //                                    FROM    if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0)
-//                                    TO      if (water = "1")
-//
+//                                    TO      if (water == "1")
+//                                
+//                                - Replace value of modeSelected = 1 to 2 (4 x 2) / 3 (6 x 3) / 4 (4 x 3)
 //                                - Upload and run the program.                          
 
 void setup() {
