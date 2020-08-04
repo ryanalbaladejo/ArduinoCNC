@@ -109,56 +109,34 @@ class Commands {
       Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
       // MOVE TO LOCATION OF SEED TRAY
-      
+      MPC.step(true, X_DIR, X_STP, stps * (xTray - X_MIN));
+      Serial.println((String)"X MOVED " + (xTray - X_MIN) + (String)" CM.");
+      MPC.step(true, Y_DIR, Y_STP, stps * (yTray - Y_MIN));
+      Serial.println((String)"Y MOVED " + (yTray - Y_MIN) + (String)" CM.");
 
       for (int i = 0; i < noOfRows; i++) {
         for (int j = noOfCols; j > 0; j--) {
           for (int k = 0; k < noOfSeeds; k++) {
 
-            // MOVE TO FIRST ROW AND FIRST COLUMN
-            MPC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
-            Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
-            MPC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
-            Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
-            MPC.step(false, Z_DIR, Z_STP, stps * zDepth);
+            // MOVE TO iTH ROW (ySeed)
+            MPC.step(false, Y_DIR, Y_STP, stps * (Y_MAX - ySeed + (i * ySpace)));
+            Serial.println((String)"Y MOVED " + (Y_MAX - ySeed + (i * ySpace)) + (String)" CM.");
+
+            // MOVE TO jTH COLUMN
+            MPC.step(false, X_DIR, X_STP, stps * (X_MAX - xStart + (j * xSpace));
+            Serial.println((String)"X MOVED " + (X_MAX - xStart + (j * xSpace)) + (String)" CM.");
+            delay(2000);
+            MPC.startVacuumPump();
+            delay(2000);
             MPC.stopVacuumPump();
-            MPC.step(true, Z_DIR, Z_STP, stps * zDepth);
-            MPC.step(true, X_DIR, X_STP, stps * (xStart - X_MIN));
-            Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
-            MPC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
-            Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
+            delay(2000);
 
-
-
-
-
-            //            while (digitalRead(X_LIM) == HIGH) {                                      // GO TO 1ST X-COORDINATE
-            //              MPC.step(true, X_DIR, X_STP, stps);
-            //            }
-            //            while (digitalRead(Z_LIM) == HIGH) {
-            //              MPC.step(false, Z_DIR, Z_STP, stps);
-            //            }
-            //            MPC.startVacuumPump();
-            //            while (digitalRead(Z_LIM) == HIGH) {
-            //              MPC.step(true, Z_DIR, Z_STP, stps);
-            //            }
-            //            if (j == noOfCols) {
-            //              MPC.step(false, X_DIR, X_STP, stps * j * xSpace + xStart - X_MIN);
-            //            }
-            //            else {
-            //              MPC.step(false, X_DIR, X_STP, stps * j * xSpace);
-            //            }
-            //            MPC.step(true, Y_DIR, Y_STP, stps * (ySeed - Y_MIN) * (i + 1) );
-            //            while (digitalRead(Z_LIM) == HIGH) {
-            //              MPC.step(false, Z_DIR, Z_STP, stps);
-            //            }
-            //            MPC.stopVacuumPump();
-            //            delay(3000);
-            //            while (digitalRead(Z_LIM) == HIGH) {
-            //              MPC.step(true, Z_DIR, Z_STP, stps);
-            //            }
-
-
+            // MOVE BACK TO SEED TRAY
+            MPC.step(true, X_DIR, X_STP, stps * (X_MAX - xStart + (j * xSpace));
+            Serial.println((String)"X MOVED " + (X_MAX - xStart + (j * xSpace)) + (String)" CM.");
+            MPC.step(true, Y_DIR, Y_STP, stps * (Y_MAX - ySeed + (i * ySpace)));
+            Serial.println((String)"Y MOVED " + (Y_MAX - ySeed + (i * ySpace)) + (String)" CM.");
+            
           }
         }
       }
@@ -248,13 +226,13 @@ class Commands {
           delay(3000);
           MPC.stopWaterPump();
         }
-        
+
         // MOVE TO 1ST X-COORDINATE (3RD ROW VERSION)
         for (int j = noOfCols; j > 0; j--) {
           MPC.step(false, X_DIR, X_STP, stps * xSpace);
           Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
         }
-        // MOVE TO LEFTMOST END ALONG X 
+        // MOVE TO LEFTMOST END ALONG X
         MPC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN));
         Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
 
