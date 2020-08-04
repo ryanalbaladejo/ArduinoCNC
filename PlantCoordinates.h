@@ -7,17 +7,17 @@ extern int ySpace     = 0;              // SPACING ALONG Y
 extern int ySeed      = 0;              // FIRST Y-COORDINATE FOR SEEDING
 extern int yWater     = 0;              // FIRST Y-COORDINATE FOR WATERING
 
-extern int zDepth     = 25;              // SEEDING DEPTH
+extern int zDepth     = 25;             // SEEDING DEPTH
 
 extern int noOfCols   = 0;              // NO. OF COLUMNS
 extern int noOfRows   = 0;              // NO. OF ROWS  
 
-extern int noOfSeeds  = 3;              // 3 SEEDS PER COORDINATE
+extern int noOfSeeds  = 3;              // 3 SEEDS PER COORDINATE    <--- CHANGE VALUE IF PLANT REQUIRES DIFFERENT NO. OF SEEDS PER PLOT.
 
 // SEED TRAY COORDINATE 
 
-extern int xTray      = 0;
-extern int yTray      = 0;
+extern int xTray      = X_MAX;
+extern int yTray      = Y_MAX;
 
 // MODE 00: 5 X 2
 extern int  MODE00_xSpace   = 15;           
@@ -60,5 +60,5 @@ extern int  MODE11_ySpace   = 10;
 extern int  MODE11_ySeed    = 15;       
 extern int  MODE11_yWater   = 22;       
 
-extern int  MODE11_noOfCols = 3;        
+extern int  MODE11_noOfCols = 4;        
 extern int  MODE11_noOfRows = 3;        

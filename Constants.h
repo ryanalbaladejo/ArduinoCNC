@@ -13,7 +13,7 @@ extern boolean Y_NEG = false;    // Y UP LIMIT SWITCH
 
 extern boolean Z_POS = false;    // Z LIMIT SWITCH
 
-// MAX / MIN REACH FOR EACH AXIS
+// MIN / MAX REACH FOR EACH AXIS
 
 extern long int X_MIN = 15;
 extern long int X_MAX = 95;
@@ -21,7 +21,7 @@ extern long int X_MAX = 95;
 extern long int Y_MIN = 12;
 extern long int Y_MAX = 43;
 
-extern long int Z_MIN = 0;
+extern long int Z_MIN = 0;        // PLEASE CHECK PROTOTYPE
 extern long int Z_MAX = 0;
 
 // MOTOR COORDINATES AFTER SUCCESSFUL CALIBRATION

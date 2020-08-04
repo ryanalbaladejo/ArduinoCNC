@@ -108,6 +108,9 @@ class Commands {
       // PRINT STARTING COORDINATES
       Serial.println((String)"START \n    --> X : " + X_VAL + (String)" CM , Y : " + Y_VAL +  (String)" CM , Z : " + Z_VAL + (String)" CM");
 
+      // MOVE TO LOCATION OF SEED TRAY
+      
+
       for (int i = 0; i < noOfRows; i++) {
         for (int j = noOfCols; j > 0; j--) {
           for (int k = 0; k < noOfSeeds; k++) {
