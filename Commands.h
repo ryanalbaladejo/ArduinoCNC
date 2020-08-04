@@ -233,8 +233,8 @@ class Commands {
           Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
         }
         // MOVE TO LEFTMOST END ALONG X
-        MPC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN));
-        Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
+        MPC.step(false, X_DIR, X_STP, stps * (xStart - X_MIN + noOfCols * xSpace));
+        Serial.println((String)"X MOVED " + (xStart - X_MIN + noOfCols * xSpace) + (String)" CM.");
 
       } else {
         // MOVE TO LEFTMOST END ALONG X
