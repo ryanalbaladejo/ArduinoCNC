@@ -115,16 +115,16 @@ class Commands {
       Serial.println((String)"Y MOVED " + (yTray - Y_MIN) + (String)" CM.");
 
       for (int i = 0; i < noOfRows; i++) {
-        for (int j = noOfCols; j > 0; j--) {
+        for (int j = 0; j < noOfCols; j++) {
           for (int k = 0; k < noOfSeeds; k++) {
 
             // MOVE TO iTH ROW (ySeed)
-            MPC.step(false, Y_DIR, Y_STP, stps * (Y_MAX - ySeed + (i * ySpace)));
-            Serial.println((String)"Y MOVED " + (Y_MAX - ySeed + (i * ySpace)) + (String)" CM.");
+            MPC.step(false, Y_DIR, Y_STP, stps * (Y_MAX - ySeed - (i * ySpace)));
+            Serial.println((String)"Y MOVED " + (Y_MAX - ySeed - (i * ySpace)) + (String)" CM.");
 
             // MOVE TO jTH COLUMN
-            MPC.step(false, X_DIR, X_STP, stps * (X_MAX - xStart + (j * xSpace));
-            Serial.println((String)"X MOVED " + (X_MAX - xStart + (j * xSpace)) + (String)" CM.");
+            MPC.step(false, X_DIR, X_STP, stps * (X_MAX - xStart - (j * xSpace));
+            Serial.println((String)"X MOVED " + (X_MAX - xStart - (j * xSpace)) + (String)" CM.");
             delay(2000);
             MPC.startVacuumPump();
             delay(2000);
@@ -132,10 +132,10 @@ class Commands {
             delay(2000);
 
             // MOVE BACK TO SEED TRAY
-            MPC.step(true, X_DIR, X_STP, stps * (X_MAX - xStart + (j * xSpace));
-            Serial.println((String)"X MOVED " + (X_MAX - xStart + (j * xSpace)) + (String)" CM.");
-            MPC.step(true, Y_DIR, Y_STP, stps * (Y_MAX - ySeed + (i * ySpace)));
-            Serial.println((String)"Y MOVED " + (Y_MAX - ySeed + (i * ySpace)) + (String)" CM.");
+            MPC.step(true, X_DIR, X_STP, stps * (X_MAX - xStart - (j * xSpace));
+            Serial.println((String)"X MOVED " + (X_MAX - xStart - (j * xSpace)) + (String)" CM.");
+            MPC.step(true, Y_DIR, Y_STP, stps * (Y_MAX - ySeed - (i * ySpace)));
+            Serial.println((String)"Y MOVED " + (Y_MAX - ySeed - (i * ySpace)) + (String)" CM.");
             
           }
         }
