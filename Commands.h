@@ -132,7 +132,7 @@ class Commands {
             MPC.stopVacuumPump();
             delay(2000);
 
-            if (i == noOfRows - 1 && j == noOfCols - 1 && k = noOfSeeds -1) {
+            if (i == noOfRows - 1 && j == noOfCols - 1 && k == noOfSeeds - 1) {
 
               // MOVE TOWARDS LEFTMOST END
               MPC.step(false, X_DIR, X_STP, stps * (xStart + (j * xSpace)));
@@ -147,9 +147,14 @@ class Commands {
               // MOVE BACK TO SEED TRAY
               MPC.step(true, X_DIR, X_STP, stps * (xTray - xStart - (j * xSpace)));
               Serial.println((String)"X MOVED " + (xTray - xStart - (j * xSpace)) + (String)" CM.");
-              MPC.step(true, Y_DIR, Y_STP, stps * (yTray - ySeed - (i * ySpace)));
-              Serial.println((String)"Y MOVED " + (yTray - ySeed - (i * ySpace)) + (String)" CM.");
+//              MPC.step(true, Y_DIR, Y_STP, stps * (yTray - ySeed - (i * ySpace)));
+//              Serial.println((String)"Y MOVED " + (yTray - ySeed - (i * ySpace)) + (String)" CM.");
+
+              do {
+                MPC.step(true, X_DIR, X_STP, stps);
+              } while (digitalRead(Y_LIM) == HIGH);
               delay(2000);
+              
             }
 
           }
@@ -207,7 +212,7 @@ class Commands {
       // MOVE TO 2ND ROW
       MPC.step(true, Y_DIR, Y_STP, stps * ySpace);
       Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
-      delay(5000);
+      delay(2000);
       MPC.startWaterPump();
       delay(3000);
       MPC.stopWaterPump();
