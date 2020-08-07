@@ -121,9 +121,10 @@ class Commands {
             // MOVE TO iTH ROW (ySeed)
             MPC.step(false, Y_DIR, Y_STP, stps * (yTray - ySeed - (i * ySpace)));
             Serial.println((String)"Y MOVED " + (yTray - ySeed - (i * ySpace)) + (String)" CM.");
+            delay(500);
 
             // MOVE TO jTH COLUMN
-            MPC.step(false, X_DIR, X_STP, stps * (xTray - xStart - (j * xSpace));
+            MPC.step(false, X_DIR, X_STP, stps * (xTray - xStart - (j * xSpace)));
             Serial.println((String)"X MOVED " + (xTray - xStart - (j * xSpace)) + (String)" CM.");
             delay(2000);
             MPC.startVacuumPump();
@@ -131,12 +132,24 @@ class Commands {
             MPC.stopVacuumPump();
             delay(2000);
 
+            if(i == noOfRows - 1 && j == noOfCols - 1){
+            // MOVE TOWARDS LEFTMOST END
+            MPC.step(false, X_DIR, X_STP, stps * (xStart + (j * xSpace)));
+            Serial.println((String)"X MOVED " + (xStart + (j * xSpace)) + (String)" CM.");  
+
+            // MOVE TO ORIGIN
+            MPC.step(false, Y_DIR, Y_STP, stps * (ySeed + (i * ySpace)));
+            Serial.println((String)"Y MOVED " + (ySeed + (i * ySpace)) + (String)" CM.");
+              
+            } else {
             // MOVE BACK TO SEED TRAY
-            MPC.step(true, X_DIR, X_STP, stps * (xTray - xStart - (j * xSpace));
+            MPC.step(true, X_DIR, X_STP, stps * (xTray - xStart - (j * xSpace)));
             Serial.println((String)"X MOVED " + (xTray - xStart - (j * xSpace)) + (String)" CM.");
             MPC.step(true, Y_DIR, Y_STP, stps * (yTray - ySeed - (i * ySpace)));
             Serial.println((String)"Y MOVED " + (yTray - ySeed - (i * ySpace)) + (String)" CM.");
-            
+            delay(2000);
+            }
+                        
           }
         }
       }
