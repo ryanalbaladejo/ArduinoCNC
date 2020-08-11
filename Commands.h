@@ -202,7 +202,7 @@ class Commands {
       Serial.println((String)"X MOVED " + (xStart - X_MIN) + (String)" CM.");
       MPC.step(true, Y_DIR, Y_STP, stps * (yWater - Y_MIN));
       Serial.println((String)"Y MOVED " + (yWater - Y_MIN) + (String)" CM.");
-      delay(5000);
+      delay(2000);
       MPC.startWaterPump();
       delay(3000);
       MPC.stopWaterPump();
@@ -211,7 +211,7 @@ class Commands {
       for (int i = 1; i < noOfCols; i++) {
         MPC.step(true, X_DIR, X_STP, stps * xSpace);
         Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
-        delay(5000);
+        delay(2000);
         MPC.startWaterPump();
         delay(3000);
         MPC.stopWaterPump();
@@ -229,7 +229,7 @@ class Commands {
       for (int i = 1; i < noOfCols; i++) {
         MPC.step(false, X_DIR, X_STP, stps * xSpace);
         Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
-        delay(5000);
+        delay(2000);
         MPC.startWaterPump();
         delay(3000);
         MPC.stopWaterPump();
@@ -240,7 +240,7 @@ class Commands {
         // MOVE TO 3RD ROW                                                                                                modePin1 = 1; then noOfCols = 3
         MPC.step(true, Y_DIR, Y_STP, stps * ySpace);
         Serial.println((String)"Y MOVED " + ySpace + (String)" CM.");
-        delay(5000);
+        delay(2000);
         MPC.startWaterPump();
         delay(3000);
         MPC.stopWaterPump();
@@ -249,7 +249,7 @@ class Commands {
         for (int i = 1; i < noOfCols; i++) {
           MPC.step(true, X_DIR, X_STP, stps * xSpace);
           Serial.println((String)"X MOVED " + xSpace + (String)" CM.");
-          delay(5000);
+          delay(2000);
           MPC.startWaterPump();
           delay(3000);
           MPC.stopWaterPump();
