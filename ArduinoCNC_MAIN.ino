@@ -1,12 +1,26 @@
 #include "Controls.h"
 #include "ModeSelection.h"
 #include "Commands.h"
+#include <Adafruit_NeoPixel.h>
+
+//#define NeoPin_1 31
+//#define NeoPin_2 33
+//#define NeoPin_3 35
+//#define NeoPin_4 37
+//#define NUMPIXELS 178
+//#define NeoRPi 39
+
+Adafruit_NeoPixel pixels1(NUMPIXELS, NeoPin_1, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels2(NUMPIXELS, NeoPin_2, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels3(NUMPIXELS, NeoPin_3, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels4(NUMPIXELS, NeoPin_4, NEO_GRB + NEO_KHZ800);
+
 
 // FOR TESTING PURPOSES:    1. Go to Constants.h and look for section "// RPI HARDCODED COMMANDS".
-//                          2. Select the process you wish to perform on the robot and change the 
+//                          2. Select the process you wish to perform on the robot and change the
 //                             value 0 -> 1. (PICK ONE ONLY)
-//                          3. After selecting the process, go to ModeSelection.h and replace the 
-//                             argument in one of the if/else in check() with the process you selected. 
+//                          3. After selecting the process, go to ModeSelection.h and replace the
+//                             argument in one of the if/else in check() with the process you selected.
 //                          4. Set modeSelected into the mode setting you wish to apply. [Input 1/2/3/4]
 //
 //                             ADDITIONAL STEP IF SEEDING/WATERING:
@@ -15,8 +29,8 @@
 //                                    "[FOR TESTING IN SEEDING]" - if seeding is being tested
 //                             b. Change the argument to "seed = 1" or "water = 1" depending on the
 //                                process being simulated.
-//                                      
-//                                EXAMPLE: 
+//
+//                                EXAMPLE:
 //
 //                                Scenario: You wish to perform the watering process with the robot
 //                                          and you want it to use the 6 x 3 setting [MODE 3].
@@ -26,9 +40,9 @@
 //
 //                                    FROM    if (digitalRead(modePin1) == 0 && digitalRead(modePin0) == 0)
 //                                    TO      if (water == "1")
-//                                
+//
 //                                - Replace value of modeSelected = 1 to 2 (4 x 2) / 3 (6 x 3) / 4 (4 x 3)
-//                                - Upload and run the program.                          
+//                                - Upload and run the program.
 
 void setup() {
 
@@ -58,6 +72,11 @@ void setup() {
   digitalWrite(EN, LOW);
   digitalWrite(waterPump, HIGH);    // WATER PUMP : OFF
   digitalWrite(vacuumPump, HIGH);   // VACUUM PUMP : OFF
+
+  pixels1.begin();
+  pixels2.begin();
+  pixels3.begin();
+  pixels4.begin();
 }
 
 void loop() {
@@ -78,9 +97,48 @@ void loop() {
       Serial.println("ERROR. Can only execute one command per run.");
     }
   } else if (DONE == 0 && idle == 1) {
+    if (digitalRead(NeoRPi) == HIGH) {
+      // TURN ON GROW LIGHTS
+      for (int i = 0; i < NUMPIXELS; i++) {
+        if (i % 4 == 0) {
+          pixels1.setPixelColor(i, pixels1.Color(0, 0, 255));
+          pixels2.setPixelColor(i, pixels2.Color(0, 0, 255));
+          pixels3.setPixelColor(i, pixels3.Color(0, 0, 255));
+          pixels4.setPixelColor(i, pixels4.Color(0, 0, 255));
+          pixels1.show();
+          pixels2.show();
+          pixels3.show();
+          pixels4.show();
+        }
+        else {
+          pixels1.setPixelColor(i, pixels1.Color(255, 0, 0));
+          pixels2.setPixelColor(i, pixels2.Color(255, 0, 0));
+          pixels3.setPixelColor(i, pixels3.Color(255, 0, 0));
+          pixels4.setPixelColor(i, pixels4.Color(255, 0, 0));
+          pixels1.show();
+          pixels2.show();
+          pixels3.show();
+          pixels4.show();
+        }
+      }
+    } else {
+      // TURN OFF GROW LIGHTS
+      for (int i = 0; i < NUMPIXELS; i++) {
+        pixels1.setPixelColor(i, pixels1.Color(0, 0, 0));
+        pixels2.setPixelColor(i, pixels2.Color(0, 0, 0));
+        pixels3.setPixelColor(i, pixels3.Color(0, 0, 0));
+        pixels4.setPixelColor(i, pixels4.Color(0, 0, 0));
+        pixels1.show();
+        pixels2.show();
+        pixels3.show();
+        pixels4.show();
+      }
+    }
+
     Serial.println("Nothing to do.");
     DONE = 1;
     delay(3000);
+
   } else if (DONE == 1 && idle == 1) {
 
     if (digitalRead(seedPin) == HIGH && digitalRead(waterPin) == LOW && digitalRead(calibPin) == LOW) {

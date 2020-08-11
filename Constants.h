@@ -3,6 +3,11 @@
 extern int delayTime = 1000;         // Delay between each pause (uS); The smaller the value, the faster the revolution.
 extern long int stps = 50;           // microsteps per revolution with 1/32 microstepping    [50 steps = 1 cm travel]
 
+// GROW LIGHT SETTINGS
+
+extern int NUMPIXELS = 178;
+
+
 // LIMIT SWITCH CHECKERS
 
 extern boolean X_POS = false;    // X RIGHT LIMIT SWITCH
