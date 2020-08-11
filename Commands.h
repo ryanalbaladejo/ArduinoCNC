@@ -155,9 +155,6 @@ class Commands {
               // MOVE BACK TO SEED TRAY
               MPC.step(true, X_DIR, X_STP, stps * (xTray - xStart - (j * xSpace)));
               Serial.println((String)"X MOVED " + (xTray - xStart - (j * xSpace)) + (String)" CM.");
-              //              MPC.step(true, Y_DIR, Y_STP, stps * (yTray - ySeed - (i * ySpace)));
-              //              Serial.println((String)"Y MOVED " + (yTray - ySeed - (i * ySpace)) + (String)" CM.");
-
               do {
                 MPC.step(true, X_DIR, X_STP, stps);
               } while (digitalRead(Y_LIM) == HIGH);

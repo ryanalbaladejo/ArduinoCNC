@@ -3,13 +3,6 @@
 #include "Commands.h"
 #include <Adafruit_NeoPixel.h>
 
-//#define NeoPin_1 31
-//#define NeoPin_2 33
-//#define NeoPin_3 35
-//#define NeoPin_4 37
-//#define NUMPIXELS 178
-//#define lightPin 39
-
 Adafruit_NeoPixel pixels1(NUMPIXELS, NeoPin_1, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel pixels2(NUMPIXELS, NeoPin_2, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel pixels3(NUMPIXELS, NeoPin_3, NEO_GRB + NEO_KHZ800);
