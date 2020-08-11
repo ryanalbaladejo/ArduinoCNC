@@ -21,11 +21,11 @@ extern int NeoPin_1   = 31;
 extern int NeoPin_2   = 33;
 extern int NeoPin_3   = 35;
 extern int NeoPin_4   = 37;
-extern int NeoRPi     = 39;
 
 // RPI-ARDUINO COMMUNICATION PINS
 extern int modePin0   =  22;               // MODE SELECTION:    00 - 5 X 2;   10 - 6 X 3
 extern int modePin1   =  23;               //                    01 - 4 X 2;   11 - 4 X 3    
+extern int lightPin   =  39;               // FOR GROWLIGHTS
 extern int seedPin    =  38;               // FOR SEEDING
 extern int waterPin   =  40;               // FOR WATERING
 extern int calibPin   =  42;               // FOR CALIBRATION
