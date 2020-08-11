@@ -5,7 +5,7 @@ extern long int stps = 50;           // microsteps per revolution with 1/32 micr
 
 // GROW LIGHT SETTINGS
 
-extern int NUMPIXELS = 178;
+extern int NUMPIXELS = 178;          // No. of LEDs to be opened
 
 
 // LIMIT SWITCH CHECKERS
